@@ -1,0 +1,451 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to LK Hospital{% endblock %}
+
+{% block content %}
+
+<header class="cool-header">
+    <div class="hospital-logo-cool">
+        <img src="{{ url_for('static', filename='images/hospital-logo.png') }}" alt="LK Hospital Logo" class="logo-pulse">
+        <span class="hospital-name-cool">LK Hospital</span>
+    </div>
+    <div class="nav-buttons-cool">
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}" class="nav-button-cool login-btn-cool">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="{{ url_for('logout') }}" class="nav-button-cool register-btn-cool">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="nav-button-cool login-btn-cool">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <a href="{{ url_for('register') }}" class="nav-button-cool register-btn-cool">
+                <i class="fas fa-user-plus"></i> Register
+            </a>
+        {% endif %}
+    </div>
+</header>
+
+<main class="container mt-5">
+    <div class="welcome-section-cool text-center mb-5">
+        <h1 class="display-3 fw-bold mb-4 title-glow">
+            Welcome to <span class="text-primary pulse-text">LK Hospital</span>
+        </h1>
+        <p class="lead text-muted mb-5 subtitle-fade">Your trusted healthcare partner for quality medical services</p>
+        
+        <!-- Cool stats counter -->
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-number" data-count="500">0</div>
+                <div class="stat-label">Happy Patients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="50">0</div>
+                <div class="stat-label">Expert Doctors</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="24">0</div>
+                <div class="stat-label">Hours Service</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="15">0</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card-cool" data-tilt>
+                <div class="icon-wrapper-cool">
+                    <i class="fas fa-ambulance icon-bounce"></i>
+                </div>
+                <h3 class="card-title-cool">24/7 Emergency Care</h3>
+                <p class="card-text-cool">Round-the-clock medical assistance for all your emergency needs.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card-cool" data-tilt>
+                <div class="icon-wrapper-cool">
+                    <i class="fas fa-user-md icon-bounce"></i>
+                </div>
+                <h3 class="card-title-cool">Expert Doctors</h3>
+                <p class="card-text-cool">Our team of experienced healthcare professionals is here to serve you.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card-cool" data-tilt>
+                <div class="icon-wrapper-cool">
+                    <i class="fas fa-hospital icon-bounce"></i>
+                </div>
+                <h3 class="card-title-cool">Modern Facilities</h3>
+                <p class="card-text-cool">State-of-the-art medical equipment and comfortable patient care.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section-cool text-center mt-5">
+        <h2 class="mb-4 cta-title">Ready to Get Started?</h2>
+        <p class="mb-4 cta-subtitle">Book your appointment today and experience world-class healthcare.</p>
+        {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('register') }}" class="btn-cool btn-primary-cool">
+                <span class="btn-text">Register Now</span>
+            </a>
+        {% else %}
+            <a href="{{ url_for('dashboard') }}" class="btn-cool btn-primary-cool">
+                <span class="btn-text">Book Appointment</span>
+            </a>
+        {% endif %}
+    </div>
+</main>
+
+<style>
+/* White Background Start Page Styling */
+body {
+    background-color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #333;
+}
+
+/* Cool Header */
+.cool-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hospital-logo-cool {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-pulse {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.hospital-name-cool {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #333;
+}
+
+.nav-buttons-cool {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-button-cool {
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.login-btn-cool {
+    background-color: #007bff;
+    color: white;
+}
+
+.login-btn-cool:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.register-btn-cool {
+    background-color: #28a745;
+    color: white;
+}
+
+.register-btn-cool:hover {
+    background-color: #1e7e34;
+    color: white;
+}
+
+/* Welcome Section */
+.welcome-section-cool {
+    padding: 4rem 0;
+    position: relative;
+}
+
+.title-glow {
+    color: #333;
+}
+
+.pulse-text {
+    animation: pulseText 2s ease-in-out infinite;
+}
+
+@keyframes pulseText {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.subtitle-fade {
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stats Counter */
+.stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+    color: #333;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #007bff;
+    animation: countUp 2s ease-out;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Feature Cards */
+.feature-card-cool {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    height: 100%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card-cool:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.icon-wrapper-cool {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+}
+
+.icon-bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.card-title-cool {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.card-text-cool {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* CTA Section */
+.cta-section-cool {
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 4rem 0;
+    border: 1px solid #dee2e6;
+}
+
+.cta-title {
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.cta-subtitle {
+    color: #6c757d;
+    font-size: 1.2rem;
+}
+
+/* Cool Button */
+.btn-cool {
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary-cool {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+}
+
+.btn-primary-cool:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(40, 167, 69, 0.6);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cool-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .hospital-name-cool {
+        font-size: 1.5rem;
+    }
+    
+    .nav-buttons-cool {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .stats-row {
+        gap: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+    }
+}
+
+/* Tilt Effect */
+[data-tilt] {
+    transform-style: preserve-3d;
+}
+
+/* Counter Animation */
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+// Cool animations and effects for start page only
+document.addEventListener('DOMContentLoaded', function() {
+    // Counter animation
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        let count = 0;
+        const increment = target / 100;
+        
+        const updateCounter = () => {
+            if (count < target) {
+                count += increment;
+                counter.textContent = Math.ceil(count);
+                setTimeout(updateCounter, 20);
+            } else {
+                counter.textContent = target + (target === 24 ? '/7' : '+');
+            }
+        };
+        
+        // Start counter when element is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        observer.observe(counter);
+    });
+    
+    // Simple tilt effect for cards
+    const tiltElements = document.querySelectorAll('[data-tilt]');
+    tiltElements.forEach(element => {
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+    });
+});
+</script>
+{% endblock %}
